@@ -2,7 +2,7 @@ import pygame
 import pytmx
 import pyscroll
 from pygame import key
-from character import Character
+from overworld.scripts.character import Character
 # from player import Player
 
 class Game:
@@ -12,7 +12,7 @@ class Game:
         pygame.display.set_caption("Pyquest")
 
         # charger la carte (tmx)
-        self.tmx_data = pytmx.util_pygame.load_pygame('./assets/overworld_assets/map.tmx')
+        self.tmx_data = pytmx.util_pygame.load_pygame('./overworld/assets/map.tmx')
         map_data = pyscroll.data.TiledMapData(self.tmx_data)
         map_layer = pyscroll.orthographic.BufferedRenderer(map_data, self.screen.get_size())
         map_layer.zoom = 1
