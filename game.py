@@ -1,5 +1,4 @@
 import pygame
-<<<<<<< HEAD
 import pytmx
 import pyscroll
 from pygame import key
@@ -33,10 +32,3 @@ class Game:
                     running = False
 
         pygame.quit()
-=======
-from character import Character
-
-class Game:
-    def __init__(self):
-        self.character= Character()
->>>>>>> 62e697055b1f9a243b63856a1d03dfdf55c2110d
