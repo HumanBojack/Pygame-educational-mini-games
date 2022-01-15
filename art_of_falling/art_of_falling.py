@@ -10,8 +10,10 @@ class ArtOfFalling:
     self.background = pygame.image.load("assets/background.png")
     self.screen = screen
     self.player = Player()
+    
 
     self.all_words = pygame.sprite.Group()
+    self.createword()
 
 
   def update(self):
@@ -19,14 +21,21 @@ class ArtOfFalling:
     self.set_background(self.background, self.screen)
     self.screen.blit(self.player.image, self.player.positions[self.player.position])
 
-    self.all_words.add(Word(self, 0))
-    self.all_words.add(Word(self, 1))
-    self.all_words.add(Word(self, 2))
-
+    
+    for word in self.all_words:
+      word.forward()
     self.all_words.draw(self.screen)
+    
+
 
     pygame.display.flip()
 
 
   def set_background(self, background, screen):
     screen.blit(background, (0,0))
+
+  def createword(self):
+    self.all_words.add(Word(self, 0, "salut"))
+    self.all_words.add(Word(self, 1, "print(\"hello\")"))
+    self.all_words.add(Word(self, 2, "print(hello)"))
+  
