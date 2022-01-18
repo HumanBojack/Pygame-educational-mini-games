@@ -10,7 +10,7 @@ class ArtOfFalling:
     self.background = pygame.image.load("assets/background.png")
     self.background = pygame.transform.scale(self.background, (640,480))
     self.screen = screen
-    self.player = Player()
+    self.player = Player(self)
     
 
     self.all_words = pygame.sprite.Group()
@@ -28,7 +28,11 @@ class ArtOfFalling:
     self.all_words.draw(self.screen)
     
     for word in self.check_collision(self.player, self.all_words):
-      print("touching", word.rect.y)
+      print(word.is_correct)
+      if word.is_correct:
+        self.player.score += 10  
+      else:
+        self.player.lose_health()
 
     pygame.display.flip()
 
@@ -37,10 +41,13 @@ class ArtOfFalling:
     screen.blit(background, (0,0))
 
   def createword(self):
-    self.all_words.add(Word(self, 0, "salut"))
+    self.all_words.add(Word(self, 0, "salut", True))
     self.all_words.add(Word(self, 1, "print(\"hello\")"))
     self.all_words.add(Word(self, 2, "print(hello)"))
   
 
   def check_collision(self, sprite, group):
     return pygame.sprite.spritecollide(sprite, group, False, pygame.sprite.collide_mask)
+  
+  def gameover(self, score = None):
+    print ("perdu")
