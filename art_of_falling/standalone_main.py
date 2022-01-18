@@ -24,6 +24,7 @@ while running:
         game.player.position -= 1
       if event.key == pygame.K_DOWN and game.player.position < len(game.player.positions) - 1:
         game.player.position += 1
+      game.player.move(game.player.position)
     # stops the game if you press escape
     if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
       running = False

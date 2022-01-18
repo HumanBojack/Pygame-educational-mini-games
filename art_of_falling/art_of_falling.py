@@ -8,6 +8,7 @@ class ArtOfFalling:
   def __init__(self, screen):
     # Load the background and initiate the player
     self.background = pygame.image.load("assets/background.png")
+    self.background = pygame.transform.scale(self.background, (640,480))
     self.screen = screen
     self.player = Player()
     
@@ -26,7 +27,8 @@ class ArtOfFalling:
       word.forward()
     self.all_words.draw(self.screen)
     
-
+    for word in self.check_collision(self.player, self.all_words):
+      print("touching", word.rect.y)
 
     pygame.display.flip()
 
@@ -39,3 +41,6 @@ class ArtOfFalling:
     self.all_words.add(Word(self, 1, "print(\"hello\")"))
     self.all_words.add(Word(self, 2, "print(hello)"))
   
+
+  def check_collision(self, sprite, group):
+    return pygame.sprite.spritecollide(sprite, group, False, pygame.sprite.collide_mask)

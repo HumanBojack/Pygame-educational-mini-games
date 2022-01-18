@@ -10,6 +10,9 @@ class Player(pygame.sprite.Sprite):
     # This is all the available positions for the player, under than is an index
     self.positions = [(30,17.5),(30,126+17.5),(30,252+17.5)]
     self.position = 1
-    self.default_pos = 1
+    self.rect.y = self.positions[self.position][1]
+
+  def move(self, position):
+    self.rect.y = self.positions[position][1]
 
   
