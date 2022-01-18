@@ -12,10 +12,8 @@ class Player(pygame.sprite.Sprite):
     self.positions = [(30,17.5),(30,126+17.5),(30,252+17.5)]
     self.position = 1
     self.rect.y = self.positions[self.position][1]
-    self.health = 1
+    self.health = 3
     self.score = 0
-
-
 
   def move(self, position):
     self.rect.y = self.positions[position][1]

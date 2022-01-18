@@ -9,9 +9,9 @@ class Word(pygame.sprite.Sprite):
     self.font = pygame.font.Font("freesansbold.ttf", 32)
     self.image = self.font.render(text, True, (0,0,0))
     self.rect = self.image.get_rect()
-    self.rect.x = 400
-    self.rect.y = self.game.player.positions[index][1]
-    self.velocity = 5
+    self.rect.x = 700
+    self.rect.y = self.game.player.positions[index][1] + self.rect.h
+    self.velocity = 4
     self.is_correct = is_correct
 
   def forward(self):
