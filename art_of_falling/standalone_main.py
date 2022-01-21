@@ -11,11 +11,13 @@ FPS = 60
 screen = pygame.display.set_mode((640, 480))
 game = ArtOfFalling(screen)
 
-running = True
-while running:
+while game.isrunning:
 
-  # Update everything
-  game.update()
+  if game.isplaying:
+    # Update everything
+    game.update()
+  else:
+    game.menu()
 
   for event in pygame.event.get():
     # Change the index for the position
@@ -27,4 +29,6 @@ while running:
       game.player.move(game.player.position)
     # stops the game if you press escape
     if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
-      running = False
+      game.isrunning = False
+
+  clock.tick(FPS)

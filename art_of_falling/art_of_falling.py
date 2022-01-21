@@ -11,7 +11,8 @@ class ArtOfFalling:
     self.background = pygame.transform.scale(self.background, (640,480))
     self.screen = screen
     self.player = Player(self)
-    
+    self.isplaying = False
+    self.isrunning = True
 
     self.all_words = pygame.sprite.Group()
     self.createwords()
@@ -32,11 +33,19 @@ class ArtOfFalling:
         self.player.score += 10  
       else:
         self.player.lose_health()
+
       # delete and recreate words when there is a collision
       self.all_words = pygame.sprite.Group()
       self.createwords()
 
     pygame.display.flip()
+
+  def menu(self):
+    while self.isrunning and not self.isplaying:
+
+      for event in pygame.event.get():
+        if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
+          self.isrunning = False
 
 
   def set_background(self, background, screen):
@@ -47,9 +56,9 @@ class ArtOfFalling:
     self.all_words.add(Word(self, 1, "print(\"hello\")"))
     self.all_words.add(Word(self, 2, "print(hello)"))
   
-
   def check_collision(self, sprite, group):
     return pygame.sprite.spritecollide(sprite, group, False, pygame.sprite.collide_mask)
   
   def gameover(self, score = None):
     print ("perdu")
+    self.isrunning = False
