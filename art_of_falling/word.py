@@ -6,7 +6,7 @@ class Word(pygame.sprite.Sprite):
   def __init__(self, game, index, text, is_correct = False ):
     super().__init__()
     self.game = game
-    self.font = pygame.font.Font("freesansbold.ttf", 32)
+    self.font = pygame.font.Font("assets/coders_crux.ttf", 60) # pygame.font.Font("freesansbold.ttf", 32)
     self.image = self.font.render(text, True, (0,0,0))
     self.rect = self.image.get_rect()
     self.rect.x = 700

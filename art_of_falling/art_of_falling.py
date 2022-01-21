@@ -22,7 +22,7 @@ class ArtOfFalling:
 
   def update(self):
     # Display the background and the player (at a given position)
-    self.set_background(self.background, self.screen)
+    self.set_background(self.background)
     self.screen.blit(self.player.image, self.player.positions[self.player.position])
 
     
@@ -48,8 +48,8 @@ class ArtOfFalling:
 
       menu.update()
 
-  def set_background(self, background, screen):
-    screen.blit(background, (0,0))
+  def set_background(self, background):
+    self.screen.blit(background, (0, 0))
 
   def createwords(self):
     self.all_words.add(Word(self, 0, "salut", True))
