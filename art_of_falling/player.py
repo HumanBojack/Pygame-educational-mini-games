@@ -10,10 +10,8 @@ class Player(pygame.sprite.Sprite):
     self.game = game
     # This is all the available positions for the player, under than is an index
     self.positions = [(30,17.5),(30,126+17.5),(30,252+17.5)]
-    self.position = 1
-    self.rect.y = self.positions[self.position][1]
-    self.health = 3
-    self.score = 0
+    self.reset()
+    
 
   def move(self, position):
     self.rect.y = self.positions[position][1]
@@ -22,6 +20,12 @@ class Player(pygame.sprite.Sprite):
     self.health -= 1 
     if self.health <= 0:
       self.game.gameover()
+
+  def reset(self):
+    self.position = 1
+    self.rect.y = self.positions[self.position][1]
+    self.health = 3
+    self.score = 0
 
       
 

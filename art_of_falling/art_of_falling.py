@@ -2,6 +2,7 @@ from re import S
 import pygame
 from player import Player
 from word import Word
+from menu import Menu
 
 class ArtOfFalling:
 
@@ -10,9 +11,10 @@ class ArtOfFalling:
     self.background = pygame.image.load("assets/background.png")
     self.background = pygame.transform.scale(self.background, (640,480))
     self.screen = screen
-    self.player = Player(self)
     self.isplaying = False
     self.isrunning = True
+    self.player = Player(self)
+    self.difficulty = 1.0
 
     self.all_words = pygame.sprite.Group()
     self.createwords()
@@ -41,12 +43,10 @@ class ArtOfFalling:
     pygame.display.flip()
 
   def menu(self):
+    menu = Menu(self)
     while self.isrunning and not self.isplaying:
 
-      for event in pygame.event.get():
-        if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
-          self.isrunning = False
-
+      menu.update()
 
   def set_background(self, background, screen):
     screen.blit(background, (0,0))
@@ -61,4 +61,4 @@ class ArtOfFalling:
   
   def gameover(self, score = None):
     print ("perdu")
-    self.isrunning = False
+    self.isplaying = False
