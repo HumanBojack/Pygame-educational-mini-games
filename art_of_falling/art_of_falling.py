@@ -1,5 +1,6 @@
 from re import S
 import pygame
+import random
 from player import Player
 from word import Word
 from menu import Menu
@@ -15,9 +16,10 @@ class ArtOfFalling:
     self.isrunning = True
     self.player = Player(self)
     self.difficulty = 1.0
+    self.previous_games = -1
 
     self.all_words = pygame.sprite.Group()
-    self.createwords()
+    self.instantiate_gamemode()
 
 
   def update(self):
@@ -38,7 +40,8 @@ class ArtOfFalling:
 
       # delete and recreate words when there is a collision
       self.all_words = pygame.sprite.Group()
-      self.createwords()
+
+      self.instantiate_gamemode()
 
     pygame.display.flip()
 
@@ -62,3 +65,20 @@ class ArtOfFalling:
   def gameover(self, score = None):
     print ("perdu")
     self.isplaying = False
+
+  def gamemode_selector(self):
+    if self.previous_games == -1:
+      self.gamemode = random.choice(["which_is_good", "which_is_python"])
+    elif self.previous_games == 5:
+      self.previous_games = 0
+      self.gamemode = ("which_is_good", "which_is_python")[self.gamemode == "which_is_good"]
+
+  def instantiate_gamemode(self):
+    self.gamemode_selector()
+    print(self.gamemode)
+
+    self.previous_games += 1
+    if self.gamemode == "which_is_good":
+      self.createwords()
+    elif self.gamemode == "which_is_python":
+      pass
