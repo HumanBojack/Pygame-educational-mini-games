@@ -26,6 +26,7 @@ class Player(pygame.sprite.Sprite):
     self.rect.y = self.positions[self.position][1]
     self.health = 3
     self.score = 0
+    self.game.rounds = -1
 
       
 

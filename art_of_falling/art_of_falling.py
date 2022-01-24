@@ -23,8 +23,8 @@ class ArtOfFalling:
     self.hud_font = pygame.font.Font("assets/coders_crux.ttf", 30)
 
     self.all_words = pygame.sprite.Group()
-    self.previous_games = -1
-    self.instantiate_gamemode()
+    self.rounds = -1
+    self.execute_gamemode()
 
 
   def update(self):
@@ -36,7 +36,7 @@ class ArtOfFalling:
       # delete and recreate words when there is a collision
       self.all_words = pygame.sprite.Group()
       # Select the next gamemode
-      self.instantiate_gamemode()
+      self.execute_gamemode()
    
     # Display the background and the player (at a given position)
     self.set_background(self.background)
@@ -120,18 +120,17 @@ class ArtOfFalling:
     self.wig_question = self.wig_font.render(question, True, (0,0,0))
     
   def gamemode_selector(self):
-    if self.previous_games == -1:
-      self.previous_games = 0
+    if self.rounds == -1:
+      self.rounds = 1
       self.gamemode = random.choice(["which_is_good", "which_is_python"])
-      self.gamemode = "which_is_good"
-    elif self.previous_games == 5:
-      self.previous_games = 0
+    elif self.rounds % 5 == 0:
+      self.rounds = 0
       self.gamemode = ("which_is_good", "which_is_python")[self.gamemode == "which_is_good"]
 
-  def instantiate_gamemode(self):
+  def execute_gamemode(self):
     self.gamemode_selector()
 
-    self.previous_games += 1
+    self.rounds += 1
     if self.gamemode == "which_is_good":
       self.which_is_good()
     elif self.gamemode == "which_is_python":
