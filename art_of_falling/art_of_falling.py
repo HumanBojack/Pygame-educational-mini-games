@@ -47,7 +47,6 @@ class ArtOfFalling:
     self.all_words.draw(self.screen)
 
     if self.gamemode == "which_is_good":
-      print(self.wig_question.get_rect().w)
       position_x = (640 - self.wig_question.get_rect().w) / 2
       self.screen.blit(self.wig_question, (position_x, 425))
     self.update_score()
@@ -81,9 +80,9 @@ class ArtOfFalling:
   def wip_select_word(self):
     firstword = random.choice(self.wip_good)
     secondword = random.choice(self.wip_wrong)
-    thridword = random.choice(self.wip_wrong)
+    thirdword = random.choice(self.wip_wrong)
 
-    words = [firstword, secondword, thridword]
+    words = [firstword, secondword, thirdword]
     random.shuffle(words)
     index = words.index(firstword)
 
@@ -96,8 +95,13 @@ class ArtOfFalling:
   def wig_select_word(self):
     level = random.choice(self.wig_words)
     # self.wig_words.remove(level) => recharger load_game_mode()
-    question, words = level
-    good_answer = words[0]
+
+    question = level["question"]
+    words = level["values"]
+    good_answer = level["good"]
+    print(question, words, good_answer)
+    print(words)
+    print(good_answer)
 
     random.shuffle(words)
     index = words.index(good_answer)
@@ -113,6 +117,7 @@ class ArtOfFalling:
   def gamemode_selector(self):
     if self.previous_games == -1:
       self.gamemode = random.choice(["which_is_good", "which_is_python"])
+      self.gamemode = "which_is_good"
     elif self.previous_games == 5:
       self.previous_games = 0
       self.gamemode = ("which_is_good", "which_is_python")[self.gamemode == "which_is_good"]

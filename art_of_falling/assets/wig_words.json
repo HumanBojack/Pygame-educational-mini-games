@@ -1,5 +1,5 @@
 [
-  ["5%3", ["2", "1", "0"]],
-  ["8%2", ["0", "1", "4"]],
-  ["True is not True", ["False", "True", "None"]]
+  {"question": "5%3", "values": ["2", "1", "0"], "good": "2"},
+  {"question": "8%2", "values": ["0", "1", "4"], "good": "0"},
+  {"question": "True is not True", "values": ["False", "True", "None"], "good": "False"}
 ]
