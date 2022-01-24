@@ -2,6 +2,7 @@ from multiprocessing import Condition
 from re import S
 import pygame
 import random
+import json
 from player import Player
 from word import Word
 from menu import Menu
@@ -16,9 +17,11 @@ class ArtOfFalling:
     self.isplaying = False
     self.isrunning = True
     self.player = Player(self)
-    self.difficulty = 1.0
+    self.difficulty = 1.0 # est-ce que c'est encore utile ?
     self.wip_good = ['print("hello world")', 'def nom():', 'n = 0', 'Class nom():', 'array.append("hello")']
     self.wip_wrong = ['DISPLAY "hello world"', "funct nom():", "n = 0;", "mauvais", "pasbon", "no", "pasça", "tjrspas", "try again", "game over", "end"]
+
+    self.load_wig_words()
 
     self.all_words = pygame.sprite.Group()
     self.previous_games = -1
@@ -83,6 +86,23 @@ class ArtOfFalling:
     words, index = self.wip_select_word()
     self.createwords(words, index)
 
+  def wig_select_word(self):
+    level = random.choice(self.wig_words)
+    # self.wig_words.remove(level)
+    question, words = level
+    good_answer = words[0]
+
+    random.shuffle(words)
+    index = words.index(good_answer)
+
+    return words, index, question
+
+  def which_is_good(self):
+    words, index, question = self.wig_select_word()
+    self.createwords(words, index)
+    # display question
+    
+
   def gamemode_selector(self):
     if self.previous_games == -1:
       self.gamemode = random.choice(["which_is_good", "which_is_python"])
@@ -98,4 +118,8 @@ class ArtOfFalling:
     if self.gamemode == "which_is_good":
       self.which_is_python()
     elif self.gamemode == "which_is_python":
-      pass
+      self.which_is_good()
+
+  def load_wig_words(self):
+    with open("assets/wig_words.json") as f:
+      self.wig_words = list(json.load(f))
