@@ -1,5 +1,9 @@
 [
   {"question": "5%3", "values": ["2", "1", "0"], "good": "2"},
   {"question": "8%2", "values": ["0", "1", "4"], "good": "0"},
-  {"question": "True is not True", "values": ["False", "True", "None"], "good": "False"}
+  {"question": "True is not True", "values": ["False", "True", "None"], "good": "False"},
+  {"question": "int(2.8)", "values": ["2", "3", "Error"], "good": "2"},
+  {"question": "int(2,8)", "values": ["Error", "3", "2"], "good": "Error"},
+  {"question": "type(1)", "values": ["<class 'int'>", "1", "!type(-1)"], "good": "<class 'int'>"},
+  {"question": "float(\"inf\")", "values": ["inf", "-1", "Error"], "good": "inf"}
 ]
