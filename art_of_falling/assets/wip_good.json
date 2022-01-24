@@ -2,6 +2,6 @@
   "print(\"hello world\")",
   "def nom():",
   "n = 0",
-  "Class nom():",
+  "class nom():",
   "array.append(\"hello\")"
 ]
