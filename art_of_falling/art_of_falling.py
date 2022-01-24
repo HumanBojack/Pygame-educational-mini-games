@@ -1,5 +1,3 @@
-from multiprocessing import Condition
-from re import S
 import pygame
 import random
 from player import Player
@@ -19,7 +17,7 @@ class ArtOfFalling:
     self.difficulty = 1.0
     self.wip_good = ['print("hello world")', 'def nom():', 'n = 0', 'Class nom():', 'array.append("hello")']
     self.wip_wrong = ['DISPLAY "hello world"', "funct nom():", "n = 0;", "mauvais", "pasbon", "no", "pasça", "tjrspas", "try again", "game over", "end"]
-
+    self.font = pygame.font.Font("assets/coders_crux.ttf", 30)
     self.all_words = pygame.sprite.Group()
     self.previous_games = -1
     self.instantiate_gamemode()
@@ -45,6 +43,11 @@ class ArtOfFalling:
       self.all_words = pygame.sprite.Group()
 
       self.instantiate_gamemode()
+   
+    scoredraw = str(int (self.player.score * self.difficulty))
+    scoredraw = "score : " + scoredraw
+    scoredraw = self.font.render(scoredraw, True, (255,255,255))
+    self.screen.blit(scoredraw, (50, 420))
 
     pygame.display.flip()
 
