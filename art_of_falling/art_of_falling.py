@@ -20,7 +20,7 @@ class ArtOfFalling:
     self.load_wip_words()
     self.load_wig_words()
     self.wig_font = pygame.font.Font("assets/coders_crux.ttf", 80)
-    self.score_font = pygame.font.Font("assets/coders_crux.ttf", 30)
+    self.hud_font = pygame.font.Font("assets/coders_crux.ttf", 30)
 
     self.all_words = pygame.sprite.Group()
     self.previous_games = -1
@@ -50,13 +50,18 @@ class ArtOfFalling:
       position_x = (640 - self.wig_question.get_rect().w) / 2
       self.screen.blit(self.wig_question, (position_x, 420))
     self.update_score()
+    self.update_health()
     pygame.display.flip()
 
   def update_score(self):
-    scoredraw = str(int (self.player.score * self.difficulty))
-    scoredraw = "score : " + scoredraw
-    scoredraw = self.score_font.render(scoredraw, True, (255,255,255))
-    self.screen.blit(scoredraw, (50, 420))
+    scoredraw = f"Score: {int(self.player.score * self.difficulty)} (x{self.difficulty})"
+    scoredraw = self.hud_font.render(scoredraw, True, (192,255,255))
+    self.screen.blit(scoredraw, (10, 462)) # (50, 420) (420, 30) (10, 462) (425, 10)
+  
+  def update_health(self):
+    health_display = f"{self.player.health} life remaining"
+    health_display = self.hud_font.render(health_display, True, (0,0,0))
+    self.screen.blit(health_display, (440,10))
 
   def menu(self):
     menu = Menu(self)
