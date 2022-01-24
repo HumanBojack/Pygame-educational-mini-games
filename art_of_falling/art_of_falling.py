@@ -111,3 +111,4 @@ class ArtOfFalling:
       self.createwords()
     elif self.gamemode == "which_is_python":
       pass
+    ##maj
