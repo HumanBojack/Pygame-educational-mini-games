@@ -19,7 +19,7 @@ class ArtOfFalling:
 
     self.load_wip_words()
     self.load_wig_words()
-    self.wig_font = pygame.font.Font("assets/coders_crux.ttf", 60)
+    self.wig_font = pygame.font.Font("assets/coders_crux.ttf", 80)
     self.score_font = pygame.font.Font("assets/coders_crux.ttf", 30)
 
     self.all_words = pygame.sprite.Group()
@@ -48,7 +48,7 @@ class ArtOfFalling:
 
     if self.gamemode == "which_is_good":
       position_x = (640 - self.wig_question.get_rect().w) / 2
-      self.screen.blit(self.wig_question, (position_x, 425))
+      self.screen.blit(self.wig_question, (position_x, 420))
     self.update_score()
     pygame.display.flip()
 
@@ -70,7 +70,6 @@ class ArtOfFalling:
     return pygame.sprite.spritecollide(sprite, group, False, pygame.sprite.collide_mask)
   
   def gameover(self, score = None):
-    print ("perdu")
     self.isplaying = False
 
   def createwords(self, words, index):
@@ -94,14 +93,15 @@ class ArtOfFalling:
 
   def wig_select_word(self):
     level = random.choice(self.wig_words)
-    # self.wig_words.remove(level) => recharger load_game_mode()
+
+    self.wig_words.remove(level)
+    if not self.wig_words:
+      print("reloading")
+      self.load_wig_words()
 
     question = level["question"]
     words = level["values"]
     good_answer = level["good"]
-    print(question, words, good_answer)
-    print(words)
-    print(good_answer)
 
     random.shuffle(words)
     index = words.index(good_answer)
@@ -116,6 +116,7 @@ class ArtOfFalling:
     
   def gamemode_selector(self):
     if self.previous_games == -1:
+      self.previous_games = 0
       self.gamemode = random.choice(["which_is_good", "which_is_python"])
       self.gamemode = "which_is_good"
     elif self.previous_games == 5:
@@ -124,7 +125,6 @@ class ArtOfFalling:
 
   def instantiate_gamemode(self):
     self.gamemode_selector()
-    print(self.gamemode)
 
     self.previous_games += 1
     if self.gamemode == "which_is_good":
