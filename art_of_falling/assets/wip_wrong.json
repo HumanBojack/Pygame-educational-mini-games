@@ -1,0 +1,13 @@
+[
+  "DISPLAY \"hello world\"",
+  "funct nom():",
+  "n/=0",
+  "x++1",
+  "x++",
+  "tantque x==1",
+  "printf(\"salut\")",
+  "perform",
+  "end-program",
+  "pic x",
+  "int (main)"
+]
