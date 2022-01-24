@@ -18,10 +18,10 @@ class ArtOfFalling:
     self.player = Player(self)
     self.difficulty = 1.0
     self.wip_good = ['print("hello world")', 'def nom():', 'n = 0', 'Class nom():', 'array.append("hello")']
-    self.wip_wrong = ['display("hello world)', "funct nom():", "n = 0;", "mauvais", "pasbon", "no", "pasça", "tjrspas", "try again", "game over", "end"]
-    self.previous_games = -1
+    self.wip_wrong = ['DISPLAY "hello world"', "funct nom():", "n = 0;", "mauvais", "pasbon", "no", "pasça", "tjrspas", "try again", "game over", "end"]
 
     self.all_words = pygame.sprite.Group()
+    self.previous_games = -1
     self.instantiate_gamemode()
 
 
@@ -51,16 +51,10 @@ class ArtOfFalling:
   def menu(self):
     menu = Menu(self)
     while self.isrunning and not self.isplaying:
-
       menu.update()
 
   def set_background(self, background):
     self.screen.blit(background, (0, 0))
-
-  def createwords(self):
-    self.all_words.add(Word(self, 0, "salut"))
-    self.all_words.add(Word(self, 1, "print(\"hello\")", True))
-    self.all_words.add(Word(self, 2, "print(hello)"))
   
   def check_collision(self, sprite, group):
     return pygame.sprite.spritecollide(sprite, group, False, pygame.sprite.collide_mask)
@@ -68,32 +62,26 @@ class ArtOfFalling:
   def gameover(self, score = None):
     print ("perdu")
     self.isplaying = False
+
+  def createwords(self, words, index):
+    for i in range(3):
+      self.all_words.add(Word(self, i, words[i], i == index))
   
-  def wip_selct_word(self):
+  def wip_select_word(self):
     firstword = random.choice(self.wip_good)
     secondword = random.choice(self.wip_wrong)
     thridword = random.choice(self.wip_wrong)
 
-    list = [firstword, secondword, thridword]
-    random.shuffle(list)
-    list.index(firstword)
-    condition1 = False
-    condition2 = False
-    condition3 = False
-    if list[0] == firstword:
-      condition1 = True
-    if list[1] == firstword:
-        condition2 = True
-    if list[2] == firstword:
-      condition3 = True
+    words = [firstword, secondword, thridword]
+    random.shuffle(words)
+    index = words.index(firstword)
+    print(index)
 
-
-    self.all_words.add(Word(self, 0, list[0], condition1))
-    self.all_words.add(Word(self, 1, list[1], condition2))
-    self.all_words.add(Word(self, 2, list[2], condition3))
+    return words, index
 
   def which_is_python(self):
-    self.wip_selct_word
+    words, index = self.wip_select_word()
+    self.createwords(words, index)
 
   def gamemode_selector(self):
     if self.previous_games == -1:
@@ -108,7 +96,6 @@ class ArtOfFalling:
 
     self.previous_games += 1
     if self.gamemode == "which_is_good":
-      self.createwords()
+      self.which_is_python()
     elif self.gamemode == "which_is_python":
       pass
-    ##maj
