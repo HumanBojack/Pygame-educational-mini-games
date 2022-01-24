@@ -15,7 +15,6 @@ class Word(pygame.sprite.Sprite):
     self.is_correct = is_correct
 
   def forward(self):
-    self.rect.x -= self.velocity + (self.game.difficulty * (self.game.previous_games / 8)) # Increase the dividing number to reduce the difficulty
+    self.rect.x -= self.velocity + (self.game.difficulty * ((self.game.rounds + 1) / 8)) # Increase the dividing number to reduce the difficulty
     if self.rect.x < 0:
       self.remove()
-      
