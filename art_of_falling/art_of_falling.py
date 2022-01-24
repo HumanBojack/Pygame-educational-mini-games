@@ -1,5 +1,3 @@
-from multiprocessing import Condition
-from re import S
 import pygame
 import random
 import json
@@ -17,11 +15,12 @@ class ArtOfFalling:
     self.isplaying = False
     self.isrunning = True
     self.player = Player(self)
-    self.difficulty = 1.0 # est-ce que c'est encore utile ?
+    self.difficulty = 1.0
 
     self.load_wip_words()
     self.load_wig_words()
     self.wig_font = pygame.font.Font("assets/coders_crux.ttf", 60)
+    self.score_font = pygame.font.Font("assets/coders_crux.ttf", 30)
 
     self.all_words = pygame.sprite.Group()
     self.previous_games = -1
@@ -38,7 +37,7 @@ class ArtOfFalling:
       self.all_words = pygame.sprite.Group()
       # Select the next gamemode
       self.instantiate_gamemode()
-
+   
     # Display the background and the player (at a given position)
     self.set_background(self.background)
     self.screen.blit(self.player.image, self.player.positions[self.player.position])
@@ -51,7 +50,14 @@ class ArtOfFalling:
       print(self.wig_question.get_rect().w)
       position_x = (640 - self.wig_question.get_rect().w) / 2
       self.screen.blit(self.wig_question, (position_x, 425))
+    self.update_score()
     pygame.display.flip()
+
+  def update_score(self):
+    scoredraw = str(int (self.player.score * self.difficulty))
+    scoredraw = "score : " + scoredraw
+    scoredraw = self.score_font.render(scoredraw, True, (255,255,255))
+    self.screen.blit(scoredraw, (50, 420))
 
   def menu(self):
     menu = Menu(self)
