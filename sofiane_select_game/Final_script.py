@@ -11,7 +11,7 @@ class Game:
         # Init the display
         self.width, self.height = width, height
         self.game_rect = game_rect
-        self.screen = pygame.display.set_mode((1000, 520))
+        self.screen = pygame.display.set_mode((640, 480))
         pygame.display.set_caption('Sofiane Game')
         # Creates the answer selector
         self.answer_selector = AnswerSelector(on_select=self.start)
@@ -19,7 +19,7 @@ class Game:
         self.running = True
         self.started = False
 
-    def start(self, image_path):
+    def start(self):
         """Starts the game"""
         self.started = True
 
@@ -49,7 +49,6 @@ class Game:
         """Performs the game loop: process input, update screen etc."""
         clock = pygame.time.Clock()
         while self.running:
-            elapsed = clock.tick(30)
             self.screen.fill((0, 0, 0))
             self.update()
             self.draw()
@@ -133,7 +132,7 @@ class AnswerSelector:
         for level, p in zip(levels, pos):
             if level is not None:
                 surface.blit(level, p)
-        # Draws a white border around the current image and the `select puzzle` image
+        # Draws a white border around the current image and the `select answer` image
         pygame.draw.rect(surface, (255, 255, 255), (80  , 94, 240, 240), 3)
         surface.blit(self._select, (127, 40))
 
