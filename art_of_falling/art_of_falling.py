@@ -22,6 +22,7 @@ class ArtOfFalling:
     self.wip_wrong = ['DISPLAY "hello world"', "funct nom():", "n = 0;", "mauvais", "pasbon", "no", "pasça", "tjrspas", "try again", "game over", "end"]
 
     self.load_wig_words()
+    self.wig_font = pygame.font.Font("assets/coders_crux.ttf", 60)
 
     self.all_words = pygame.sprite.Group()
     self.previous_games = -1
@@ -29,26 +30,28 @@ class ArtOfFalling:
 
 
   def update(self):
-    # Display the background and the player (at a given position)
-    self.set_background(self.background)
-    self.screen.blit(self.player.image, self.player.positions[self.player.position])
-
-    
-    for word in self.all_words:
-      word.forward()
-    self.all_words.draw(self.screen)
-    
     for word in self.check_collision(self.player, self.all_words):
       if word.is_correct:
         self.player.score += 10  
       else:
         self.player.lose_health()
-
       # delete and recreate words when there is a collision
       self.all_words = pygame.sprite.Group()
-
+      # Select the next gamemode
       self.instantiate_gamemode()
 
+    # Display the background and the player (at a given position)
+    self.set_background(self.background)
+    self.screen.blit(self.player.image, self.player.positions[self.player.position])
+
+    for word in self.all_words:
+      word.forward()
+    self.all_words.draw(self.screen)
+
+    if self.gamemode == "which_is_good":
+      print(self.wig_question.get_rect().w)
+      position_x = (640 - self.wig_question.get_rect().w) / 2
+      self.screen.blit(self.wig_question, (position_x, 425))
     pygame.display.flip()
 
   def menu(self):
@@ -78,7 +81,6 @@ class ArtOfFalling:
     words = [firstword, secondword, thridword]
     random.shuffle(words)
     index = words.index(firstword)
-    print(index)
 
     return words, index
 
@@ -101,11 +103,12 @@ class ArtOfFalling:
     words, index, question = self.wig_select_word()
     self.createwords(words, index)
     # display question
+    self.wig_question = self.wig_font.render(question, True, (0,0,0))
     
-
   def gamemode_selector(self):
     if self.previous_games == -1:
       self.gamemode = random.choice(["which_is_good", "which_is_python"])
+      self.gamemode = "which_is_good" # to remove
     elif self.previous_games == 5:
       self.previous_games = 0
       self.gamemode = ("which_is_good", "which_is_python")[self.gamemode == "which_is_good"]
@@ -116,9 +119,9 @@ class ArtOfFalling:
 
     self.previous_games += 1
     if self.gamemode == "which_is_good":
-      self.which_is_python()
-    elif self.gamemode == "which_is_python":
       self.which_is_good()
+    elif self.gamemode == "which_is_python":
+      self.which_is_python()
 
   def load_wig_words(self):
     with open("assets/wig_words.json") as f:
