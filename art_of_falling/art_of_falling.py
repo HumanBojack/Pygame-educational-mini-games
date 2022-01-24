@@ -1,5 +1,7 @@
+from multiprocessing import Condition
 from re import S
 import pygame
+import random
 from player import Player
 from word import Word
 from menu import Menu
@@ -15,6 +17,8 @@ class ArtOfFalling:
     self.isrunning = True
     self.player = Player(self)
     self.difficulty = 1.0
+    self.wip_good = ['print("hello world")', 'def nom():', 'n = 0', 'Class nom():', 'array.append("hello")']
+    self.wip_wrong = ['display("hello world)', "funct nom():", "n = 0;", "mauvais", "pasbon", "no", "pasça", "tjrspas", "try again", "game over", "end"]
 
     self.all_words = pygame.sprite.Group()
     self.createwords()
@@ -52,8 +56,8 @@ class ArtOfFalling:
     self.screen.blit(background, (0, 0))
 
   def createwords(self):
-    self.all_words.add(Word(self, 0, "salut", True))
-    self.all_words.add(Word(self, 1, "print(\"hello\")"))
+    self.all_words.add(Word(self, 0, "salut"))
+    self.all_words.add(Word(self, 1, "print(\"hello\")", True))
     self.all_words.add(Word(self, 2, "print(hello)"))
   
   def check_collision(self, sprite, group):
@@ -62,3 +66,31 @@ class ArtOfFalling:
   def gameover(self, score = None):
     print ("perdu")
     self.isplaying = False
+  
+  def wip_selct_word(self):
+    firstword = random.choice(self.wip_good)
+    secondword = random.choice(self.wip_wrong)
+    thridword = random.choice(self.wip_wrong)
+
+    list = [firstword, secondword, thridword]
+    random.shuffle(list)
+    list.index(firstword)
+    condition1 = False
+    condition2 = False
+    condition3 = False
+    if list[0] == firstword:
+      condition1 = True
+    if list[1] == firstword:
+        condition2 = True
+    if list[2] == firstword:
+      condition3 = True
+
+
+    self.all_words.add(Word(self, 0, list[0], condition1))
+    self.all_words.add(Word(self, 1, list[1], condition2))
+    self.all_words.add(Word(self, 2, list[2], condition3))
+
+  def which_is_python(self):
+    self.wip_selct_word
+
+
