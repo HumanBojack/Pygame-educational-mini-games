@@ -19,9 +19,10 @@ class ArtOfFalling:
     self.difficulty = 1.0
     self.wip_good = ['print("hello world")', 'def nom():', 'n = 0', 'Class nom():', 'array.append("hello")']
     self.wip_wrong = ['display("hello world)', "funct nom():", "n = 0;", "mauvais", "pasbon", "no", "pasça", "tjrspas", "try again", "game over", "end"]
+    self.previous_games = -1
 
     self.all_words = pygame.sprite.Group()
-    self.createwords()
+    self.instantiate_gamemode()
 
 
   def update(self):
@@ -42,7 +43,8 @@ class ArtOfFalling:
 
       # delete and recreate words when there is a collision
       self.all_words = pygame.sprite.Group()
-      self.createwords()
+
+      self.instantiate_gamemode()
 
     pygame.display.flip()
 
@@ -93,4 +95,19 @@ class ArtOfFalling:
   def which_is_python(self):
     self.wip_selct_word
 
+  def gamemode_selector(self):
+    if self.previous_games == -1:
+      self.gamemode = random.choice(["which_is_good", "which_is_python"])
+    elif self.previous_games == 5:
+      self.previous_games = 0
+      self.gamemode = ("which_is_good", "which_is_python")[self.gamemode == "which_is_good"]
 
+  def instantiate_gamemode(self):
+    self.gamemode_selector()
+    print(self.gamemode)
+
+    self.previous_games += 1
+    if self.gamemode == "which_is_good":
+      self.createwords()
+    elif self.gamemode == "which_is_python":
+      pass
