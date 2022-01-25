@@ -9,6 +9,17 @@ class Character(pygame.sprite.Sprite):
         self.rect =self.image.get_rect()
         self.position = [x,y]
         self.speed= 0.1
+        self.feet = pygame.Rect(0,0, self.rect.width * 0.5, 12)
+        self.old_position = self.position.copy()
+
+    def save_location(self):
+        self.old_position = self.position.copy()
+        self.feet.midbottom = self.rect.midbottom
+
+    def move_back(self):
+        self.position = self.old_position
+        self.old_position = self.position.copy()
+        self.feet.midbottom = self.rect.midbottom
 
     def move_right(self):
         self.position[0] += self.speed
