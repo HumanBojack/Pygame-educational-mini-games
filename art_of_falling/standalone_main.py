@@ -8,7 +8,8 @@ clock = pygame.time.Clock()
 FPS = 60
 
 # instantiate the game
-screen = pygame.display.set_mode((640, 480))
+screensize_ = (640, 480)
+screen = pygame.display.set_mode(screensize_)
 game = ArtOfFalling(screen)
 
 while game.isrunning:
