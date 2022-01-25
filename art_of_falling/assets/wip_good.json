@@ -1,7 +1,10 @@
 [
-  "print(\"hello world\")",
+  "print(\"hello\")",
   "def nom():",
   "n = 0",
-  "class nom():",
-  "array.append(\"hello\")"
+  "class Nom():",
+  "array.append(\"hello\")",
+  "for i in range(n):",
+  "while True:",
+  " n != 1"
 ]

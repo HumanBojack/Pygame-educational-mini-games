@@ -9,5 +9,6 @@
   "perform",
   "end-program",
   "pic x",
-  "int (main)"
+  "int (main)",
+  "pt_n = &n"
 ]
